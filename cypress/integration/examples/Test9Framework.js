@@ -14,7 +14,7 @@ describe("second test suite", function () {
   });
 
   it("My 2nd suite 1st test case", function () {
-    cy.visit("https://rahulshettyacademy.com/angularpractice/");
+    cy.visit(Cypress.env("url") + "/angularpractice/");
     homepage.getNameField().type(this.data.name);
 
     cy.get('input[name = "name"]:nth-child(1)').should(
@@ -38,6 +38,41 @@ describe("second test suite", function () {
     this.data.productName.forEach(function (ele) {
       cy.selectProducttoCart(ele);
     });
+
+    //apply 8 sec timeout from here
+    //Cypress.config("defaultCommandTimeout", 8000);
+
+    cy.get(".nav-link.btn.btn-primary").click();
+
+    var sum = 0,
+      total = 0;
+    cy.get("tr td:nth-child(4) strong")
+      .each(($el, index, $list) => {
+        var res = $el.text();
+        res = res.split(" ");
+        sum = sum + Number(res[1].trim());
+      })
+      .then(function () {
+        cy.log(sum);
+      });
+
+    cy.get("h3 strong").then(function (e) {
+      total = Number(e.text().split(" ")[1].trim());
+      cy.log(total);
+    });
+
+    expect(sum).to.equal(total);
+
+    cy.get("button[class='btn btn-success']").click();
+    cy.get("#country").type("Bangladesh");
+    cy.get("div[class='suggestions'] ul li a").click();
+    cy.get("#checkbox2").click({ force: true });
+
+    cy.get("input[value='Purchase']").click();
+    cy.get(".alert.alert-success").then(function (ele) {
+      const msg = ele.text();
+      expect(msg.includes("Success")).to.be.true;
+    });
   });
 });
 
@@ -50,3 +85,7 @@ describe("second test suite", function () {
 //non cypress command like text() cant resolve promise by themselves, need to be handled
 
 //for iframe - install - npm install -D cypress-iframe
+
+
+//invoke spec from cli -
+//npx cypress run --spec cypress/integration/examples/Test9Framework.js --headed --browser chrome --env url="https://rahulshettyacademy.com"
