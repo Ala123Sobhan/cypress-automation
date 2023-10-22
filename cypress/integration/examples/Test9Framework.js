@@ -27,7 +27,10 @@ describe("second test suite", function () {
     cy.get("#inlineRadio3").should("be.disabled");
 
     cy.get("ul li[class='nav-item']:nth-child(2)").click();
-    cy.selectProducttoCart("Blackberry");
+
+    this.data.productName.forEach(function (ele) {
+      cy.selectProducttoCart(ele);
+    });
   });
 });
 
