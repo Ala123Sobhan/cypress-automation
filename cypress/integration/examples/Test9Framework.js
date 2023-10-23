@@ -90,5 +90,6 @@ describe("second test suite", function () {
 //invoke spec from cli -
 //npx cypress run --spec cypress/integration/examples/Test9Framework.js --headed --browser chrome --env url="https://rahulshettyacademy.com"
 
-
 //npx cypress run --record --key 207ca353-1e88-4962-ae60-a7d18d659a1b
+
+//for jenkins from cli with jar file - java -jar jenkins.war -httpPort=9090
