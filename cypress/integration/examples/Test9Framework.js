@@ -93,3 +93,7 @@ describe("second test suite", function () {
 //npx cypress run --record --key 207ca353-1e88-4962-ae60-a7d18d659a1b
 
 //for jenkins from cli with jar file - java -jar jenkins.war -httpPort=9090
+
+
+//burpsuite, fiddler - intercept
+//modify data/request to intercept & check security bugs in application
