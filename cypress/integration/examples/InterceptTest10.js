@@ -30,6 +30,25 @@ describe("second test suite", function () {
 
     //cy.intercept({requestobject}, {responseobject})
   });
+  it("My 2nd suite 2nd test case", function () {
+    cy.visit("https://rahulshettyacademy.com/angularAppdemo/");
+
+    cy.intercept(
+      "GET",
+      "https://rahulshettyacademy.com/Library/GetBook.php?AuthorName=shetty",
+      (req) => {
+        req.url =
+          "https://rahulshettyacademy.com/Library/GetBook.php?AuthorName=ala";
+
+        req.continue((res) => {
+          // expect(res.statusCode).to.equal(403);
+        });
+      }
+    ).as("dummyUrl");
+
+    cy.get("button[class='btn btn-primary']").click();
+    cy.wait("@dummyUrl");
+  });
 });
 
 //node_modules/.bin/cypress open - open runner
